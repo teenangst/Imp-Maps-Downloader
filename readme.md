@@ -1,4 +1,4 @@
-# Imp Maps Downloader A1
+# Imp Maps Downloader A2
 
 Made by Skylark "Help! Raccoons took my penis!" Murphy
 
@@ -30,3 +30,10 @@ Same thing as in ERR01, but with the directory previously given.
 
 There was an error with HtmlAgilityPack which is being used to scrape the website, this has probably arisen from the website being changed, a new `selector` in config is probably needed.
 Refer back to the github page, the current selector is: `"body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a"`
+
+### ERR04
+
+> Unable to check if this is the latest version, GitHub is down
+
+I'm using GitHub to check for what the latest version is and if for whatever reason GitHub is down it is unable to check if it is the latest version or not.
+
