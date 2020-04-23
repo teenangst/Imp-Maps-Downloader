@@ -81,13 +81,21 @@ let downloadMap map =
     | _ -> 
       Console.CursorLeft <- 0
       colorprintfn "$red[Invalid]     %s" map
+  //else
+  //  colorprintfn "$red[Skipping]    %s" map
 let downloadMaps maps = maps |> Array.iter (fun x -> downloadMap x)
 
 [<EntryPoint>]
 let main argv =
-  Console.Title <- "Automatic imp map downloader A1"
-  let latestVersion = (new WebClient()).DownloadString("https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/version.txt")
-  if latestVersion <> "a1" then
+  Console.Title <- "Automatic imp map downloader A2"
+  let latestVersion =
+    try
+      (new WebClient()).DownloadString("https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/version.txt")
+    with 
+    | _ -> "failed"
+  if latestVersion = "failed" then
+    colorprintfn "$red[ERR04] : Unable to check if this is the latest version, GitHub is down"
+  else if latestVersion <> "a2" then
     colorprintfn "$red[There is a new version, %s, go to https://github.com/teenangst/Imp-Maps-Downloader and get the latest release.]" latestVersion
   saveConfig ()
   if config.interval > 0. then
