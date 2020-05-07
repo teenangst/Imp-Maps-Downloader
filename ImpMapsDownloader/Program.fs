@@ -13,21 +13,34 @@ open Newtonsoft.Json
 
 type Config (mapdirectory:string, maplistsite:string, selector:string, cdn:string, interval:float) = 
   member val mapdirectory = mapdirectory with get, set
-  member val maplistsite = maplistsite with get, set
-  member val selector = selector with get, set
-  member val cdn = cdn with get, set
-  member val interval = interval with get, set
+  member val maplistsite = maplistsite
+  member val selector = selector
+  member val cdn = cdn
+  member val interval = interval
+
+let defaultConfig = 
+  (new WebClient()).DownloadString("https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/config.json") 
+    |> JsonConvert.DeserializeObject<Config>
+let ignoreConfigProperties = ["mapdirectory";"interval"]
+
 
 let temp = Path.GetTempPath()
-
 let interval = new Timers.Timer()
 
-let config = if File.Exists("config.json") then JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json")) else new Config(null, "https://bot.tf2maps.net/maplist.php", "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a", "https://cdn.tf2maps.net/maps/", 5.)
+//let config = if File.Exists("config.json") then JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json")) else new Config(null, "https://bot.tf2maps.net/maplist.php", "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a", "https://redirect.tf2maps.net/maps/", 5.)
+let mutable config =
+  if File.Exists "config.json" then
+      "config.json"
+      |> File.ReadAllText
+      |> JsonConvert.DeserializeObject<Config>
+  else
+      defaultConfig
+      
 let saveConfig () = File.WriteAllText("config.json", JsonConvert.SerializeObject(config))
 
 let fetchMaps () =
+  let doc = new HtmlDocument()
   try 
-    let doc = new HtmlDocument()
     doc.LoadHtml((new WebClient()).DownloadString(config.maplistsite))
     doc.QuerySelectorAll(config.selector) |> Seq.toArray |> Array.map (fun x -> x.InnerHtml)
   with
@@ -85,19 +98,55 @@ let downloadMap map =
   //  colorprintfn "$red[Skipping]    %s" map
 let downloadMaps maps = maps |> Array.iter (fun x -> downloadMap x)
 
-[<EntryPoint>]
-let main argv =
-  Console.Title <- "Automatic imp map downloader A2"
+let checkForConfigDifferences () =
+  if File.Exists "config.json" then
+    let masterConfig = 
+      (new WebClient()).DownloadString("https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/config.json") 
+        |> JsonConvert.DeserializeObject<Map<string, obj>>
+    let mutable currentConfig = 
+      "config.json"
+        |> File.ReadAllText
+        |> JsonConvert.DeserializeObject<Map<string, obj>>
+    let mutable changes = false
+
+    masterConfig
+      |> Map.filter (fun k v ->
+        match currentConfig |> Map.tryFind k with
+        | Some cfgV when cfgV <> v && (ignoreConfigProperties |> List.exists (fun x -> x = k) |> not) -> true
+        | _ -> false
+      )
+      |> Map.iter (fun k v ->
+        colorprintf "$red[Config entry '%s' doesn't match suggested value '%A'.\nNot changing this value may impact the function of this application.\nWould you like to update it? Y/n] " k v
+        if Console.ReadKey(true).Key = ConsoleKey.Y then
+          colorprintfn "\n$green[Changing '%s']" k
+          currentConfig <- currentConfig |> Map.map (fun ik iv -> if ik = k then v else iv)
+          changes <- true
+        else
+          colorprintfn "\n$yellow[Not changing '%s']" k
+      )
+
+    if changes then
+      config <- //This is disgusting, but basically the only way to solve this issue. Spent over an hour figuring out solutions and this allow
+        currentConfig
+        |> JsonConvert.SerializeObject
+        |> JsonConvert.DeserializeObject<Config>
+
+let () =
+  Console.Title <- "Automatic Imp Maps Downloader A3"
   let latestVersion =
     try
       (new WebClient()).DownloadString("https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/version.txt")
     with 
     | _ -> "failed"
+
   if latestVersion = "failed" then
     colorprintfn "$red[ERR04] : Unable to check if this is the latest version, GitHub is down"
-  else if latestVersion <> "a2" then
-    colorprintfn "$red[There is a new version, %s, go to https://github.com/teenangst/Imp-Maps-Downloader and get the latest release.]" latestVersion
+  else if latestVersion <> "a3" then
+    colorprintfn "$yellow[There is a new version, %s, go to https://github.com/teenangst/Imp-Maps-Downloader and get the latest release.]" latestVersion
+    checkForConfigDifferences () |> ignore
+
   saveConfig ()
+
   if config.interval > 0. then
     interval.Interval <- (config.interval |> max 5.) |> (*) 60000. //Fastest poll is 5 minutes
     interval.AutoReset <- true
@@ -106,9 +155,8 @@ let main argv =
 
     colorprintfn "Maplist will be checked every %.1g minutes $cyan[%s]" (config.interval |> max 5.) (if config.interval < 5. then "(fastest check is 5 minutes)" else "")
   else
-    printfn "interval set to 0, will not refresh maplist"
+    printfn "'interval' set to 0, will not refresh maplist"
   
   fetchMaps() |> downloadMaps
 
   Console.ReadKey true |> ignore
-  0
