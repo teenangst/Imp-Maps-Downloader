@@ -27,7 +27,6 @@ let ignoreConfigProperties = ["mapdirectory";"interval"]
 let temp = Path.GetTempPath()
 let interval = new Timers.Timer()
 
-//let config = if File.Exists("config.json") then JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json")) else new Config(null, "https://bot.tf2maps.net/maplist.php", "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a", "https://redirect.tf2maps.net/maps/", 5.)
 let mutable config =
   if File.Exists "config.json" then
       "config.json"
