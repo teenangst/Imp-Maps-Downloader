@@ -1,4 +1,5 @@
 Microcontest 4: Arena
+2020/05/23
 ctf_cargotokens_mc4_a1
 arena_squishy_mc4_a1
 arena_sortie_mc4_a1
