@@ -1,1 +1,1 @@
-{"mapdirectory":null,"maplistsite": "https://bot.tf2maps.net/maplist.php","selector": "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a","cdn": "https://redirect.tf2maps.net/maps/","interval":5.0}
+{"version":4,"mapdirectory":null,"maplistsite": "https://bot.tf2maps.net/maplist.php","selector": "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a","cdn": "https://redirect.tf2maps.net/maps/","interval":5.0,"microcontests":[]}
