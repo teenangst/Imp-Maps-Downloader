@@ -1,15 +1,1 @@
-{
-	"version": 2,
-	"mapdirectory": null,
-	"maplistsite": "https://bot.tf2maps.net/maplist.php",
-	"selector": "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a",
-	"cdn": "https://redirect.tf2maps.net/maps/",
-	"interval": 5.0,
-	"gamedays": [
-		{
-			"name":"Microcontest 4: Arena",
-			"subscribed":true,
-			"hash":"D79CBE40171303BCB049A1962A34D4673B17D7C4F912FB96368FE5F1B3054D01"
-		}
-	]
-}
+{"version":2,"versionendpoint":"https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/version.txt","gamedayindexendpoint":"","mapdirectory":null,"maplistsite": "https://bot.tf2maps.net/maplist.php","selector": "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a","cdn": "https://redirect.tf2maps.net/maps/","interval":5.0,"gameday":[]}
