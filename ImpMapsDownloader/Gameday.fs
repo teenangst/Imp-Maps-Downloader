@@ -19,7 +19,7 @@ type GameDayIndex (name:string, expire:int64, maps:string[], hash:string) =
   member val maps = maps
   member val hash = hash //maps |> String.concat "" |> hashString
 
-let processURL (url:string) = //Bypass cache if URL ends with *, i.e. "https://pastebin.com/raw/0UZZJkR0*" -> "https://pastebin.com/raw/0UZZJkR0?1590525892"
+let processURL (url:string) =
   if url.[url.Length-1] = '*' then
     sprintf "%s?%f" (url.Substring(0,url.Length-1)) (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds
   else

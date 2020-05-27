@@ -12,7 +12,7 @@ This application will download all maps on the maplist, unzip, and place them in
 
 ## GameDays
 
-Lists of maps can now be synced from gameday indexes like [Gameday Index](https://pastebin.com/raw/0UZZJkR0), this index is default but custom indexes can be added and shared. Simply add the URL to the index into the `gamedayindexendpoint` array inside the config, add a `*` to the end of the URL `"https://pastebin.com/raw/0UZZJkR0*"` if caching needs to be bypassed (achieved by adding a query with the current time).
+Lists of maps can now be synced from gameday indexes like [Gameday Index](https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/gameday.json), this index is default but custom indexes can be added and shared. Simply add the URL to the index into the `gamedayindexendpoint` array inside the config.
 When a new list is available you will be notified and asked if you would like to subscribe or not by pressing `Y` or `N`, these choices can be changed inside the config. Older expired lists will not be notified but you can subscribe to them by changing the `"subscribed"` value to `true`.
 
 ### Creating a new GameDay index
@@ -43,8 +43,6 @@ When a new list is available you will be notified and asked if you would like to
   }
 ]
 ```
-
-8. When sharing a link be aware that if where you have uploaded caches files you want to add a `*` to the end of the URL, i.e. `"https://pastebin.com/raw/0UZZJkR0*"`. This is not important but it will result in the latest version always being available, however if the URL already contains a query (the URL ends with something like `?foo=bar` or `?foo=bar&baz=1` do not add a `*` to the end)
 
 ### Updating a GameDay index
 
@@ -84,7 +82,7 @@ The endpoint which is used to check for the latest version is unresponsive and w
 
 > %URL% is not a valid gameday index
 
-The URL stated is in `config.json` inside `"gamedayindexendpoint"` and is not a valid gameday index, a valid gameday index looks like [this](https://pastebin.com/raw/0UZZJkR).
+The URL stated is in `config.json` inside `"gamedayindexendpoint"` and is not a valid gameday index, a valid gameday index looks like [this](https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/gameday.json).
 
 ### ERR06
 

@@ -49,14 +49,14 @@ type Config (versionendpoint:string, gamedayindexendpoint: string[], mapdirector
   member val interval = interval
   member val gameday = gameday with get, set
   
-let masterConfigEndpoint = "https://pastebin.com/raw/8QsViGru"
+let masterConfigEndpoint = "https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/config.json"
 
 let defaultConfig = 
   try 
     (new WebClient()).DownloadString(masterConfigEndpoint) 
       |> JsonConvert.DeserializeObject<Config>
   with
-  | _ -> new Config("https://pastebin.com/raw/a6mLNJu0", [|"https://pastebin.com/raw/0UZZJkR0*"|], null, "https://bot.tf2maps.net/maplist.php", "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a", "https://redirect.tf2maps.net/maps/", 5., [||])
+  | _ -> new Config("https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/version.txt", [|"https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/gameday.json"|], null, "https://bot.tf2maps.net/maplist.php", "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a", "https://redirect.tf2maps.net/maps/", 5., [||])
 let ignoreConfigProperties = [|"gamedayindexendpoint";"mapdirectory";"interval";"gameday"|]
 
 let mutable config =
