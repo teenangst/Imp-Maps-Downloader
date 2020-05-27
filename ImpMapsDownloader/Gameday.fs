@@ -51,6 +51,7 @@ let check () =
               addGameDayToConfig (sprintf "%s:%s" (index |> hashString) (gameday.name)) (gameday.expire) false
               false
           else
+            addGameDayToConfig (sprintf "%s:%s" (index |> hashString) (gameday.name)) (gameday.expire) false
             false
       )
       |> Array.iter (fun gameday -> //Process lists which have changed
