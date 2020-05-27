@@ -1,4 +1,4 @@
-# Imp Maps Downloader A3
+# Imp Maps Downloader A4
 
 Made by Skylark "Help! Raccoons took my penis!" Murphy
 
@@ -9,6 +9,52 @@ This application will download all maps on the maplist, unzip, and place them in
 1. Run `ImpMapsDownloader.exe`
 2. Current maps which you don't already have installed will be installed and there is a readout on progress
 3. By default step 2 is done every 5 minutes, this can be changed in `config.json` under `interval` - note, the shortest time is 5 minutes, if you set this to `0` it will not refresh
+
+## GameDays
+
+Lists of maps can now be synced from gameday indexes like [Gameday Index](https://pastebin.com/raw/0UZZJkR0), this index is default but custom indexes can be added and shared. Simply add the URL to the index into the `gamedayindexendpoint` array inside the config, add a `*` to the end of the URL `"https://pastebin.com/raw/0UZZJkR0*"` if caching needs to be bypassed (achieved by adding a query with the current time).
+When a new list is available you will be notified and asked if you would like to subscribe or not by pressing `Y` or `N`, these choices can be changed inside the config. Older expired lists will not be notified but you can subscribe to them by changing the `"subscribed"` value to `true`.
+
+### Creating a new GameDay index
+
+[You can watch a video on how to do steps 1-6](https://www.youtube.com/watch?v=yC4uhueUiQw)
+
+1. Create either:
+   - A file which contains a list of maps, one map on each line
+   - A folder with bsps
+2. Open `AIMDGameDayGenerator.exe`
+3. enter the path to either the file or the directory. The GDG will then check to make sure all of the maps are available on the cdn, if they aren't this step will fail, make sure to get the maps uploaded then try again.
+4. Enter the name for your GameDay list
+5. Enter a date in which users who have added your GDL will be asked if they would like to subscribe (they are able to subscribe by editing their `config.json` after this date), dates can be in the form `mm-dd`, `yy-mm-dd`, or you can use `d`, `w`, `m` to define a relative time such as `3d` meaning 3 days from now. You can also enter in a custom unix time.
+6. A GameDay index JSON will be created and the hash calculated
+7. You can either just upload this file somewhere and share the link, or combine this with a previous index. If you combine indexes make sure to move the curly braced object into the square braces:
+
+```json
+[
+  {
+    "name":"A GameDay List",
+    "expire": //etc
+    //...
+  },
+  {
+    "name":"Another GameDay List",
+    "expire": //etc
+    //...
+  }
+]
+```
+
+8. When sharing a link be aware that if where you have uploaded caches files you want to add a `*` to the end of the URL, i.e. `"https://pastebin.com/raw/0UZZJkR0*"`. This is not important but it will result in the latest version always being available, however if the URL already contains a query (the URL ends with something like `?foo=bar` or `?foo=bar&baz=1` do not add a `*` to the end)
+
+### Updating a GameDay index
+
+[You can watch a video on how to do this](https://www.youtube.com/watch?v=ssW-Cj7CFBU)
+
+1. Have a pre-generated GameDay index
+2. Make any changes to the maps in the file
+3. Paste the path to the JSON into GDG
+4. The hash will be updated
+5. Replace the online GameDay index with the new one
 
 ## Errors and you
 
@@ -26,14 +72,22 @@ Same thing as in ERR01, but with the directory previously given.
 
 ### ERR03
 
-> HtmlAgilityPack error
-
-There was an error with HtmlAgilityPack which is being used to scrape the website, this has probably arisen from the website being changed, a new `selector` in config is probably needed.
-Refer back to the github page, the current selector is: `"body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a"`
+Error no longer occurs
 
 ### ERR04
 
-> Unable to check if this is the latest version, GitHub is down
+> Unable to check if this is the latest version
 
-I'm using GitHub to check for what the latest version is and if for whatever reason GitHub is down it is unable to check if it is the latest version or not.
+The endpoint which is used to check for the latest version is unresponsive and will need to be checked manually.
 
+### ERR05
+
+> %URL% is not a valid gameday index
+
+The URL stated is in `config.json` inside `"gamedayindexendpoint"` and is not a valid gameday index, a valid gameday index looks like [this](https://pastebin.com/raw/0UZZJkR).
+
+### ERR06
+
+> %GameDay% does not have the correct hash, please pass a path to the index into the GameDay Generator
+
+When updating the GameDay index the hash was not recalculated, open `AIMDGameDayGenerator.exe` and past the path to the GameDay index, the hash will be made correct.
