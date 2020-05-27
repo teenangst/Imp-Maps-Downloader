@@ -10,7 +10,7 @@ let tick () =
   Environment.interval.Start ()
 
 let () =
-  Console.Title <- sprintf "Automatic Imp Maps Downloader A%i" Environment.AIMDVersion
+  Console.Title <- sprintf "Automatic Imp Maps Downloader A%s" Environment.AIMDVersion
   
   Console.CancelKeyPress.AddHandler(fun _ e -> 
     e.Cancel <- true
@@ -26,7 +26,7 @@ let () =
 
   if latestVersion = "failed" then
     colorprintfn "$red[ERR04] : Unable to check if this is the latest version"
-  else if latestVersion <> (sprintf "a%i" Environment.AIMDVersion) then
+  else if latestVersion <> (sprintf "a%s" Environment.AIMDVersion) then
     colorprintfn "$yellow[There is a new version, %s, go to https://github.com/teenangst/Imp-Maps-Downloader and get the latest release.]" latestVersion
     Config.checkForConfigDifferences () |> ignore //Check for any Config.config recommendations
 
