@@ -23,7 +23,7 @@ type Config (versionendpoint:string, gamedayindexendpoint: string[], mapdirector
   member val interval = interval
   member val gameday = gameday with get, set
 
-let masterConfigEndpoint = "https://pastebin.com/raw/8QsViGru"
+let masterConfigEndpoint = "https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/config.json"
 
 let defaultConfig = 
   try 
