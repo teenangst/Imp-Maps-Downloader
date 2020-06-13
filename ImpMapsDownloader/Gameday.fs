@@ -4,7 +4,6 @@ open Config
 open System.Text
 open Newtonsoft.Json
 open System.Net
-open System.IO
 open System
 open BlackFox.ColoredPrintf
 
@@ -29,7 +28,7 @@ let addGameDayToConfig name expire subscribed =
   config.gameday <- config.gameday |> Array.append [|new GameDay(name, subscribed, expire, null)|]
   saveConfig ()
 
-let check () = 
+let rec check i = 
   let time:int64 = (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds |> int64
   config.gamedayindexendpoint |> Array.iter (fun index -> //Iterate through indexes
     try
@@ -42,11 +41,14 @@ let check () =
         | _ ->
           if gameday.expire = -1L || gameday.expire > time then
             colorprintf "$cyan[A gameday '%s' is available, would you like to subscribe to this list? Y/n]" (gameday.name)
+            Environment.imp.Stop()
             if Console.ReadKey(true).Key = ConsoleKey.Y then
+              Environment.imp.Start()
               colorprintfn "\n$green[Subscribing to %s]" gameday.name
               addGameDayToConfig (sprintf "%s:%s" (index |> hashString) (gameday.name)) (gameday.expire) true
               true
             else
+              Environment.imp.Start()
               colorprintfn "\n$red[Not subscribing to %s]" gameday.name
               addGameDayToConfig (sprintf "%s:%s" (index |> hashString) (gameday.name)) (gameday.expire) false
               false
@@ -71,5 +73,9 @@ let check () =
         saveConfig ()
       )
     with
-    | _ -> colorprintfn "$red[ERR05] : %A is not a valid gameday index" index
+    | _ -> 
+      if i = 2 then colorprintfn "$red[ERR05] : %A is not a valid gameday index" index
+      else 
+        System.Threading.Thread.Sleep 1000
+        check (i+1)
   )

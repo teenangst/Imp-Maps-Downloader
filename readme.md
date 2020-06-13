@@ -1,4 +1,4 @@
-# Imp Maps Downloader A4
+# Imp Maps Downloader A5
 
 Made by Skylark "Help! Raccoons took my penis!" Murphy
 
@@ -89,3 +89,15 @@ The URL stated is in `config.json` inside `"gamedayindexendpoint"` and is not a 
 > %GameDay% does not have the correct hash, please pass a path to the index into the GameDay Generator
 
 When updating the GameDay index the hash was not recalculated, open `AIMDGameDayGenerator.exe` and past the path to the GameDay index, the hash will be made correct.
+
+### ERR07
+
+> Server ip %server ip% requires a port.
+
+When adding servers ensure they have a port, i.e. `eu.tf2maps.net:27015` or `95.179.255.197:27015`
+
+### ERR08
+
+> Server %server ip% dns does not resolve.
+
+The entered ip does not exist, if you try to join with the address it should fail; there was a mistake entering the address.

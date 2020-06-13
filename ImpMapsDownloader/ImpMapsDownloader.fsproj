@@ -52,6 +52,7 @@
     <Compile Include="DownloadMap.fs" />
     <Compile Include="Gameday.fs" />
     <Compile Include="FetchMaps.fs" />
+    <Compile Include="Imp.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />

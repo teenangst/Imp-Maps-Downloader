@@ -3,14 +3,19 @@
 open System
 open System.Net
 open BlackFox.ColoredPrintf
+open System.Diagnostics
 
 let tick () =
-  Gameday.check ()//Check for changes to gamedays
   FetchMaps.fetchMaps () |> DownloadMap.downloadMaps null //Check for new maps and then download
+  Gameday.check 0//Check for changes to gamedays
   Environment.interval.Start ()
 
+let imptick () =
+  Imp.checkServers ()
+  Environment.imp.Start ()
+
 let () =
-  Console.Title <- sprintf "Automatic Imp Maps Downloader A%s" Environment.AIMDVersion
+  Environment.title null null 0uy 0uy false
   
   Console.CancelKeyPress.AddHandler(fun _ e -> 
     e.Cancel <- true
@@ -20,19 +25,27 @@ let () =
   (*Check for new version*)
   let latestVersion =
     try
-      (new WebClient()).DownloadString(if Config.config.versionendpoint <> null then Config.config.versionendpoint else Config.defaultConfig.versionendpoint)
+      (new WebClient()).DownloadString(Environment.versionendpoint)
     with 
     | _ -> "failed"
 
   if latestVersion = "failed" then
     colorprintfn "$red[ERR04] : Unable to check if this is the latest version"
   else if latestVersion <> (sprintf "a%s" Environment.AIMDVersion) then
-    colorprintfn "$yellow[There is a new version, %s, go to https://github.com/teenangst/Imp-Maps-Downloader and get the latest release.]" latestVersion
-    Config.checkForConfigDifferences () |> ignore //Check for any Config.config recommendations
+    colorprintfn "$yellow[There is a new version, %s, go to https://skylarkx.uk/aimd/releases and get the latest release.]" latestVersion
+  Config.checkForConfigDifferences () |> ignore //Check for any Config.config recommendations
+    
+  (*Tick used to check for server activity*)
+  if Config.config.askToJoinImp then
+    Environment.imp.Interval <- 10000.
+    Environment.interval.AutoReset <- false
+    Environment.imp.Elapsed.AddHandler (fun _ _ -> imptick ())
+    colorprintfn "Servers will be checked for imps."
+    imptick ()
 
   (*Tick used to fetch maps and gameday maps*)
   if Config.config.interval > 0. then
-    Environment.interval.Interval <- (Config.config.interval |> max 5.) |> (*) 600. //Fastest poll is 5 minutes
+    Environment.interval.Interval <- (Config.config.interval |> max 5.) |> (*) 600. //REMOVE Fastest poll is 5 minutes
     Environment.interval.AutoReset <- false
     Environment.interval.Elapsed.AddHandler (fun _ _ -> tick ())
 

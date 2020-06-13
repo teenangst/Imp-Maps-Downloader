@@ -1,12 +1,35 @@
 {
-  "versionendpoint": "https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/version.txt",
   "gamedayindexendpoint": [
-    "https://raw.githubusercontent.com/teenangst/Imp-Maps-Downloader/master/gameday.json"
+    "https://skylarkx.uk/aimd/gameday"
   ],
   "mapdirectory": null,
   "maplistsite": "https://bot.tf2maps.net/maplist.php",
   "selector": "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a",
   "cdn": "https://redirect.tf2maps.net/maps/",
   "interval": 5.0,
-  "gameday": []
+  "servers": [
+    {
+      "ip": "us.tf2maps.net:27015",
+      "isimp": true,
+      "name": "TF2 Maps US Server"
+    },
+    {
+      "ip": "eu.tf2maps.net:27015",
+      "isimp": true,
+      "name": "TF2 Maps EU Server"
+    },
+    {
+      "ip": "us.tf2maps.net:27016",
+      "isimp": false,
+      "name": "TF2 Maps US MvM Server"
+    },
+    {
+      "ip": "eu.tf2maps.net:27016",
+      "isimp": false,
+      "name": "TF2 Maps EU MvM Server"
+    }
+  ],
+  "gameday": [],
+  "checkChanges": true,
+  "askToJoinImp": true
 }
