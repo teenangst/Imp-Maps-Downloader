@@ -28,24 +28,24 @@ let () =
       (new WebClient()).DownloadString(Environment.versionendpoint)
     with 
     | _ -> "failed"
-
+  Config.saveConfig()
   if latestVersion = "failed" then
     colorprintfn "$red[ERR04] : Unable to check if this is the latest version"
-  else if latestVersion <> (sprintf "a%s" Environment.AIMDVersion) then
+  else if latestVersion <> (sprintf "%s" Environment.AIMDVersion) then
     colorprintfn "$yellow[There is a new version, %s, go to https://skylarkx.uk/aimd/releases and get the latest release.]" latestVersion
   Config.checkForConfigDifferences () |> ignore //Check for any Config.config recommendations
     
   (*Tick used to check for server activity*)
   if Config.config.askToJoinImp then
     Environment.imp.Interval <- 10000.
-    Environment.interval.AutoReset <- false
+    Environment.imp.AutoReset <- false
     Environment.imp.Elapsed.AddHandler (fun _ _ -> imptick ())
     colorprintfn "Servers will be checked for imps."
     imptick ()
 
   (*Tick used to fetch maps and gameday maps*)
   if Config.config.interval > 0. then
-    Environment.interval.Interval <- (Config.config.interval |> max 5.) |> (*) 600. //REMOVE Fastest poll is 5 minutes
+    Environment.interval.Interval <- (Config.config.interval |> max 5.) |> (*) 60000. //REMOVE Fastest poll is 5 minutes
     Environment.interval.AutoReset <- false
     Environment.interval.Elapsed.AddHandler (fun _ _ -> tick ())
 

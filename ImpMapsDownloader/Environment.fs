@@ -11,7 +11,7 @@ let gamedayendpoint = "https://skylarkx.uk/aimd/gameday"
 let rangemax = 3./24.
 let rangemin = 1./24.
 
-let AIMDVersion = "5" //This is not also the config version, config version only increases when config has changed
+let AIMDVersion = "A5a" //This is not also the config version, config version only increases when config has changed
 let interval = new System.Timers.Timer()
 let imp = new System.Timers.Timer()
 let exitEvent = new ManualResetEvent(false)
@@ -26,9 +26,9 @@ let haltTimer func = //Pause timer from ticking while another action is taking p
 
 let title name map (players:byte) (max:byte) imp =
   if name = null then
-    Console.Title <- sprintf "Automatic Imp Maps Downloader A%s" AIMDVersion
+    Console.Title <- sprintf "Automatic Imp Maps Downloader %s" AIMDVersion
   else
-    Console.Title <- sprintf "AIMD A%s : %s%s (%s) [%i/%i]" AIMDVersion (if imp then "[imp] " else "") name map players max
+    Console.Title <- sprintf "AIMD %s : %s%s (%s) [%i/%i]" AIMDVersion (if imp then "[imp] " else "") name map players max
 
 let TF2Init () =
   if Process.GetProcessesByName("hl2").Length = 0 then
