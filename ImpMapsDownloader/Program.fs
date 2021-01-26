@@ -1,5 +1,14 @@
 ﻿module AIMD
 
+(*
+TODO:
+- Add custom thresholds
+- Add ability to beep with imp notifications
+- Auto-respond "no" after some time (5 minutes?)
+- Some way to auto-join a server when server starts filling (maybe add ctrl+c to input a command, ctrl+c again to exit)
+- When joining a map first check if it has been downloaded
+*)
+
 open System
 open System.Net
 open BlackFox.ColoredPrintf
@@ -35,12 +44,13 @@ let () =
     colorprintfn "$yellow[There is a new version, %s, go to https://skylarkx.uk/aimd/releases and get the latest release.]" latestVersion
   Config.checkForConfigDifferences () |> ignore //Check for any Config.config recommendations
     
+  //foo 1 2 ||> foo |> printfn "%A"
   (*Tick used to check for server activity*)
   if Config.config.askToJoinImp then
     Environment.imp.Interval <- 10000.
     Environment.imp.AutoReset <- false
     Environment.imp.Elapsed.AddHandler (fun _ _ -> imptick ())
-    colorprintfn "Servers will be checked for imps."
+    colorprintfn "Servers will be checked for map tests."
     imptick ()
 
   (*Tick used to fetch maps and gameday maps*)

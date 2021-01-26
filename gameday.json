@@ -1,4 +1,25 @@
 [
+  {
+    "name": "Microcontest 6",
+    "expire": 1854918110,
+    "maps": [
+      "pl_raccoons_mc6_a1b",
+      "pl_14bit_mc6_a1",
+      "pl_snickerpuffs_mc6_a1",
+      "pl_minecraft_space_mc6_a1",
+      "pl_lucky_mc6_a1",
+      "pl_savetheheavy",
+      "pl_ibex2020_mc6_a1",
+      "pl_halfcircle_mc6_a1",
+      "pl_uwil_mc6_a1",
+      "pl_funnystuf_mc6_a1",
+      "pl_something_mc6_a1",
+      "pl_fluffy_mc6",
+      "pl_mathtriqueur_mc6_a7",
+      "pl_mc6_emilcakey_a1"
+    ],
+    "hash": "A4AB3DFB284D6C672D7AE37B8FC7EE3C"
+  },
 	{
 		"name": "Map Cycle by Startacker",
 		"expire": -1,
@@ -65,6 +86,35 @@
 		],
 		"hash": "78B8B4012C32FB8B1A9E627257F988B5"
 	},
+  {
+    "name": "Featured Nominations (17th June)",
+    "expire": 1851628665,
+    "maps": [
+      "pl_jinn_b4a",
+      "mvm_yiresa_rc2",
+      "mvm_brugge_rc4b",
+      "pl_operandi_a13",
+      "ctf_nuclide_rc2b",
+      "mvm_production_rc6",
+      "pl_highwood_b17",
+      "koth_luftangriff_b5a",
+      "arena_seashore_b4",
+      "koth_hangar_rc1b",
+      "mvm_cyberia_rc6a",
+      "mvm_oxidize_rc18",
+      "mvm_waterfront_rc3",
+      "mvm_hoovydam_b8",
+      "koth_databank_b5a",
+      "cp_kalinka_rc6a",
+      "mvm_estate_b9",
+      "cp_snowbase_b3",
+      "cp_fulgur_rc2",
+      "koth_synthetic_rc6a",
+      "koth_slaughter_b2a",
+      "koth_cascade_rc1a"
+    ],
+    "hash": "7FB8A9716F3E895691B091F89E845CBF"
+  },
 	{
 		"name": "Microcontest 4: Arena",
 		"expire": 1590278400,
@@ -135,5 +185,54 @@
 			"arena_swamphole_a2"
 		],
 		"hash": "71C08CC8FAC6226CA17EACDA7D047B50"
-	}
+	},
+  {
+    "name": "Microcontest 5: Passtime",
+    "expire": 1852504526,
+    "maps": [
+      "pass_14bit_mc5_a1",
+      "pass_minecraft_mc5_a1",
+      "pass_minecraft_nether_mc5_a1",
+      "pass_8bitfenix_mc5_a1",
+      "pass_funnystuf_mc5_a1",
+      "pass_fluffycart_mc5",
+      "pass_squishy_mc5_a1",
+      "pass_raccoons_mc5_rc1",
+      "pass_cargotokens_a1b_mc5_late"
+    ],
+    "hash": "C5A84F3A5AE0C0233F8D89D547C0F5FA"
+  },
+  {
+    "name": "4th July Gameday [Standard maps]",
+    "expire": 1853081909,
+    "maps": [
+      "cp_ambush_rc3",
+      "cp_canyonfodder_b8",
+      "cp_conifer_rc2",
+      "cp_kombu_a16",
+      "cp_snowbase_b4",
+      "cp_snowlodge_b5",
+      "koth_bagel_fall_b9",
+      "koth_chasm_b1",
+      "koth_spillway_rc3a",
+      "koth_synthetic_rc6a",
+      "pl_edinbowl_b6b",
+      "pl_highwood_b17",
+      "pl_munitions_b2b",
+      "pl_pier_b23"
+    ],
+    "hash": "C10624171270B06E9C6BF42FEA8CD363"
+  },
+  {
+    "name": "4th July Gameday [MvM]",
+    "expire": 1853082013,
+    "maps": [
+      "mvm_dusk_rc3",
+      "mvm_production_rc6",
+      "mvm_rustvalley_rc3a",
+      "mvm_sequoia_rc4",
+      "mvm_yiresa_rc2"
+    ],
+    "hash": "96D0EB5FCB7D0DBB18D26EBF2C504371"
+  }
 ]

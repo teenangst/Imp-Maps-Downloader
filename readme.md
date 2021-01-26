@@ -1,6 +1,6 @@
-# Imp Maps Downloader A5
+# Imp Maps Downloader A6
 
-Made by Skylark "Help! Raccoons took my penis!" Murphy
+Made by [Skylark "Help! Raccoons took my penis!" Murphy](https://tf2maps.net/members/skylark.30345/)
 
 This application will download all maps on the maplist, unzip, and place them in your `tf\download\maps` folder ready for use in the imp to reduce wait times on map change.
 

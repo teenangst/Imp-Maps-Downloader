@@ -25,7 +25,8 @@ let processURL (url:string) =
     url
 
 let addGameDayToConfig name expire subscribed =
-  config.gameday <- config.gameday |> Array.append [|new GameDay(name, subscribed, expire, null)|]
+  //config.gameday <- config.gameday |> Array.append [|new GameDay(name, subscribed, expire, null)|]
+  config <- {config with gameday=config.gameday |> Array.append [|{name=name;subscribed=subscribed;expire=expire;hash=null}|]}
   saveConfig ()
 
 let rec check i = 
@@ -58,18 +59,19 @@ let rec check i =
       )
       |> Array.iter (fun gameday -> //Process lists which have changed
         DownloadMap.downloadMaps (gameday.name) (gameday.maps)
-        config.gameday <- 
+        let newgd =
           config.gameday 
           |> Array.map (fun configgameday -> 
             if configgameday.name = sprintf "%s:%s" (index |> hashString) (gameday.name) then
               if (gameday.maps |> String.concat "" |> hashString) = gameday.hash then
-                new GameDay(configgameday.name, configgameday.subscribed, configgameday.expire, gameday.maps |> String.concat "" |> hashString)
+                {name=configgameday.name;subscribed=configgameday.subscribed;expire=configgameday.expire;hash=gameday.maps |> String.concat "" |> hashString}
               else
                 colorprintfn "$red[ERR06] : %A does not have the correct hash, please pass a path to the index into the GameDay Generator" (gameday.name)
                 configgameday
             else
               configgameday
           )
+        config <- {config with gameday=newgd}
         saveConfig ()
       )
     with

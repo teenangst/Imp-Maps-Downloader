@@ -13,7 +13,7 @@ let temp = Path.GetTempPath()
 let rec verifyMapDirectory () =
   let enterDirectory () =
     colorprintf "> $cyan"
-    config.mapdirectory <- Console.ReadLine()
+    config <- {config with mapdirectory = Console.ReadLine()}
     saveConfig()
     verifyMapDirectory()
 

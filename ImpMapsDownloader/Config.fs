@@ -7,29 +7,9 @@ open System.IO
 
 open BlackFox.ColoredPrintf
 
-type GameDay (name:string, subscribed:bool, expire:int64, hash:string) =
-  member val name = name
-  member val subscribed = subscribed
-  member val expire = expire
-  member val hash = hash
-
-type Server (ip:string, isimp:bool, name:string) =
-  member val ip = ip
-  member val isimp = isimp
-  member val name = name
-
-type Config ((*versionendpoint:string,*) gamedayindexendpoint: string[], mapdirectory:string, maplistsite:string, selector:string, cdn:string, interval:float, servers:Server[], gameday:GameDay[], checkChanges:bool, askToJoinImp:bool) = 
-  //member val versionendpoint = versionendpoint
-  member val gamedayindexendpoint = gamedayindexendpoint
-  member val mapdirectory = mapdirectory with get, set
-  member val maplistsite = maplistsite
-  member val selector = selector
-  member val cdn = cdn
-  member val interval = interval
-  member val servers = servers
-  member val gameday = gameday with get, set
-  member val checkChanges = checkChanges
-  member val askToJoinImp = askToJoinImp
+type GameDay = {name:string; subscribed:bool; expire:int64; hash:string}
+type Server = {ip:string; isimp:bool; name:string}
+type Config = {gamedayindexendpoint: string[]; mapdirectory:string; cdn:string; interval:float; servers:Server[]; gameday:GameDay[]; checkChanges:bool; askToJoinImp:bool}
 
 let masterConfigEndpoint = Environment.configendpoint
 
@@ -40,22 +20,21 @@ let defaultConfig =
   with
   | _ -> 
     colorprintfn "$yellow[Download of master config failed, using hard coded version - this version may have issues.]"
-    new Config(
-      //Environment.versionendpoint, 
-      [|Environment.gamedayendpoint|], 
-      null, 
-      "https://bot.tf2maps.net/maplist.php", 
-      "body .row.mt-3 .col-12.mb-3 .card div table tr td:first-child a", 
-      "https://redirect.tf2maps.net/maps/", 5., 
-      [|
-        new Server("us.tf2maps.net:27015", true, "TF2 Maps US Server"); 
-        new Server("eu.tf2maps.net:27015", true, "TF2 Maps EU Server");
-        new Server("us.tf2maps.net:27016", false, "TF2 Maps MvM US Server"); 
-        new Server("eu.tf2maps.net:27016", false, "TF2 Maps MvM EU Server")
-      |], 
-      [||],
-      true,
-      true)
+    {
+      gamedayindexendpoint=[|Environment.gamedayendpoint|];
+      mapdirectory=null;
+      cdn="https://redirect.tf2maps.net/maps/";
+      interval=5.;
+      servers=[|
+        {ip="us.tf2maps.net:27015"; isimp=true; name="TF2 Maps US Server"};
+        {ip="eu.tf2maps.net:27015"; isimp=true; name="TF2 Maps EU Server"};
+        {ip="us.tf2maps.net:27016"; isimp=true; name="TF2 Maps MvM US Server"};
+        {ip="eu.tf2maps.net:27016"; isimp=true; name="TF2 Maps MvM EU Server"}
+      |];
+      gameday=[||];
+      checkChanges=true;
+      askToJoinImp=false
+    }
 let ignoreConfigProperties = [|"gamedayindexendpoint";"mapdirectory";"interval";"servers";"gameday";"checkChanges";"askToJoinImp"|]
 
 let mutable config =

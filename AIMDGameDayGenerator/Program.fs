@@ -137,7 +137,7 @@ let () =
           maps |> Array.iter(fun map ->
             let req = WebRequest.Create(Path.Combine(config.cdn, sprintf "%s.bsp.bz2" map))
             try
-              req.Method = "HEAD" |> ignore
+              req.Method <- "HEAD"
               req.GetResponse () |> ignore
               colorprintfn "$green[/] $white[%s]" map
             with 

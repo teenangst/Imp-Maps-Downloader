@@ -49,6 +49,7 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Environment.fs" />
     <Compile Include="Config.fs" />
+    <Compile Include="Beeps.fs" />
     <Compile Include="DownloadMap.fs" />
     <Compile Include="Gameday.fs" />
     <Compile Include="FetchMaps.fs" />
@@ -66,12 +67,6 @@
     </Reference>
     <Reference Include="FSharp.Core">
       <HintPath>..\packages\FSharp.Core.4.7.0\lib\net45\FSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\packages\HtmlAgilityPack.1.6.16\lib\Net45\HtmlAgilityPack.dll</HintPath>
-    </Reference>
-    <Reference Include="HtmlAgilityPack.CssSelectors.NetCore">
-      <HintPath>..\packages\HtmlAgilityPack.CssSelectors.NetCore.1.2.1\lib\netstandard2.0\HtmlAgilityPack.CssSelectors.NetCore.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>

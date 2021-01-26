@@ -1,13 +1,13 @@
 ﻿module FetchMaps
 
-open HtmlAgilityPack
-open HtmlAgilityPack.CssSelectors.NetCore
+open Newtonsoft.Json
+
+type Map = {map:string}
 
 let rec fetchMaps () =
-  let doc = new HtmlDocument()
-  try 
-    doc.LoadHtml((new System.Net.WebClient()).DownloadString(Config.config.maplistsite))
-    doc.QuerySelectorAll(Config.config.selector) |> Seq.toArray |> Array.map (fun x -> x.InnerHtml)
+  try
+    (new System.Net.WebClient()).DownloadString("https://api.skylarkx.uk/maplist?min") |> JsonConvert.DeserializeObject<Map []> |> Array.map (fun m -> m.map)
   with
-  | _ -> 
+  | _ ->
+    System.Threading.Thread.Sleep 1000
     fetchMaps ()
