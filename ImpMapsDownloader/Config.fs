@@ -24,12 +24,12 @@ let defaultConfig =
       gamedayindexendpoint=[|Environment.gamedayendpoint|];
       mapdirectory=null;
       cdn="https://redirect.tf2maps.net/maps/";
-      interval=5.;
+      interval=1.;
       servers=[|
         {ip="us.tf2maps.net:27015"; isimp=true; name="TF2 Maps US Server"};
         {ip="eu.tf2maps.net:27015"; isimp=true; name="TF2 Maps EU Server"};
-        {ip="us.tf2maps.net:27016"; isimp=true; name="TF2 Maps MvM US Server"};
-        {ip="eu.tf2maps.net:27016"; isimp=true; name="TF2 Maps MvM EU Server"}
+        (*{ip="us.tf2maps.net:27016"; isimp=true; name="TF2 Maps MvM US Server"};
+        {ip="eu.tf2maps.net:27016"; isimp=true; name="TF2 Maps MvM EU Server"};*)
       |];
       gameday=[||];
       checkChanges=true;

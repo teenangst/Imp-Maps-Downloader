@@ -20,7 +20,7 @@ module regexp =
   let json = new Regex("\.json$")
 
 module Time =
-  let second = 1000L
+  let second = 1L
   let minute = 60L * second
   let hour = 60L * minute
   let day = 24L * hour
@@ -173,7 +173,9 @@ let () =
 
       if failed > 0 then
         colorprintfn "$red[%i maps are not available]" failed
-        getAndVerifyPath ()
+
+        //getAndVerifyPath ()
+        maps
       else if failed < 0 then
         getAndVerifyPath ()
       else

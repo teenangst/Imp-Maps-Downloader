@@ -15,8 +15,8 @@ open BlackFox.ColoredPrintf
 open System.Diagnostics
 
 let tick () =
-  FetchMaps.fetchMaps () |> DownloadMap.downloadMaps null //Check for new maps and then download
   Gameday.check 0//Check for changes to gamedays
+  FetchMaps.fetchMaps () |> DownloadMap.downloadMaps null //Check for new maps and then download
   Environment.interval.Start ()
 
 let imptick () =
@@ -55,11 +55,11 @@ let () =
 
   (*Tick used to fetch maps and gameday maps*)
   if Config.config.interval > 0. then
-    Environment.interval.Interval <- (Config.config.interval |> max 5.) |> (*) 60000. //REMOVE Fastest poll is 5 minutes
+    Environment.interval.Interval <- (Config.config.interval |> max 1.) |> (*) 60000.
     Environment.interval.AutoReset <- false
     Environment.interval.Elapsed.AddHandler (fun _ _ -> tick ())
 
-    colorprintfn "Maplist will be checked every %.1g minutes $cyan[%s]" (Config.config.interval |> max 5.) (if Config.config.interval < 5. then "(fastest check is 5 minutes)" else "")
+    colorprintfn "Maplist will be checked every %.1g minute%s $cyan[%s]" (Config.config.interval |> max 1.) (if (Config.config.interval |> max 1.) > 1. then "s" else "") (if Config.config.interval < 1. then "(fastest check is 1 minute)" else "")
     tick ()
     Environment.interval.Start ()
   else

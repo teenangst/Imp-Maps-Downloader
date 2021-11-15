@@ -11,7 +11,7 @@ let gamedayendpoint = "https://skylarkx.uk/aimd/gameday"
 let rangemax = 3./24.
 let rangemin = 1./24.
 
-let AIMDVersion = "A6" //This is not also the config version, config version only increases when config has changed
+let AIMDVersion = "A7" //This is not also the config version, config version only increases when config has changed
 let interval = new System.Timers.Timer()
 let imp = new System.Timers.Timer()
 let exitEvent = new ManualResetEvent(false)

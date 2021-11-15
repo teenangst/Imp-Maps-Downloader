@@ -1,4 +1,4 @@
-# Imp Maps Downloader A6
+# Imp Maps Downloader A7
 
 Made by [Skylark "Help! Raccoons took my penis!" Murphy](https://tf2maps.net/members/skylark.30345/)
 
@@ -8,7 +8,7 @@ This application will download all maps on the maplist, unzip, and place them in
 
 1. Run `ImpMapsDownloader.exe`
 2. Current maps which you don't already have installed will be installed and there is a readout on progress
-3. By default step 2 is done every 5 minutes, this can be changed in `config.json` under `interval` - note, the shortest time is 5 minutes, if you set this to `0` it will not refresh
+3. By default step 2 is done every 5 minutes, this can be changed in `config.json` under `interval` - note, the shortest time is 1 minute, if you set this to `0` it will not refresh
 
 ## GameDays
 
